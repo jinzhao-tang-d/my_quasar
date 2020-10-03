@@ -2,7 +2,7 @@ name: Vulnerability Scan
 
 on:
   schedule:
-    - cron: '*/2 9 * * *'
+    - cron: '*/1 * * * *'
 
 jobs:
   scan:
@@ -10,9 +10,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Pull docker image
-        run: docker pull sample
+        run: docker pull jinzhaotang/my_quasar
 
       - uses: homoluctus/gitrivy@v1.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          image: sample
+          image: jinzhaotang/my_quasar
