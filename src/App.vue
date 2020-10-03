@@ -47,6 +47,7 @@
 import axios from 'axios'
 import qs from 'qs'
 const path = "basic";
+//http://localhost:8882/ == api
 export default {
   name: "App",
   data() {
@@ -64,12 +65,12 @@ export default {
   // },
   mounted() {
     const data = { 'username': 'user', 'password': 'pass' };
-    axios.post(`http://localhost:8882/${path}`,
+    axios.post(`/api/${path}`,
     data
     ).then(response =>(this.login=response.data.msg,this.user=response.data.username));
   },
   created () {
-     axios.get("http://localhost:8882/img",{
+     axios.get("/api/img",{
       // headers:{
       //   "Content-Type":"image/jpeg"
       // }
@@ -82,7 +83,7 @@ export default {
   methods: {
     onClick() {
       axios
-        .get("http://localhost:8881/")
+        .get("/api/change")
         .then(response => (this.info = response.data))
         .catch(function(error) {
           console.log("wrong:", error);
