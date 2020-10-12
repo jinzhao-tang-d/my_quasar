@@ -1,0 +1,21 @@
+name: Vulnerability Scan
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  scan:
+    name: Daily Vulnerability Scan
+    runs-on: ubuntu-18.04
+    steps:
+      - name: gcp login
+        run: gcloud auth activate-service-account github-actions@dev-jpstore-242604.iam.gserviceaccount.com --key-file=${{secrets.KEY_FILE}}
+        
+      - name: Pull docker image
+        run: docker pull asia.gcr.io/dev-jpstore-242604/jpstore.dwango.jp@sha256:e6959cb547d62c527ed99581a0960fdfe79b8f5ce7e751189d5da6f8cc08bfd8
+
+      - uses: homoluctus/gitrivy@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: docker pull asia.gcr.io/dev-jpstore-242604/jpstore.dwango.jp@sha256:e6959cb547d62c527ed99581a0960fdfe79b8f5ce7e751189d5da6f8cc08bfd8
